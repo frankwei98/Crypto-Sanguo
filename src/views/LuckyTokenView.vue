@@ -163,6 +163,7 @@ export default {
       if (!this.checkLogin()) {
         return;
       }
+      let tokenId;
       // 没有指定使用哪个幸运币
       if (isNaN(luckyTokenId)) {
         const myLuckyTokenIds = await getLuckTokensOf(this.me.address);
@@ -179,12 +180,12 @@ export default {
         // 随机选一个幸运币
         const randomLuckyToken =
           myLuckyTokenIds[Math.floor(Math.random() * myLuckyTokenIds.length)];
-        luckyTokenId = randomLuckyToken.id;
+        tokenId = randomLuckyToken.id;
       }
 
       let alertCfg;
       try {
-        const txHash = await rollDice(luckyTokenId);
+        const txHash = await rollDice(tokenId);
         alertCfg = {
           type: 'is-dark',
           title: this.$t('alert.rollDice.success.title'),
@@ -285,9 +286,10 @@ export default {
               value: 1 // default 1 hour
             },
             onConfirm: (durationInHour) => {
-              const startTime = parseInt(new Date().getTime() / 1000);
+              const time = new Date().getTime() / 1000;
+              const startTime = parseInt(time, 10);
               // const endTime = startTime + 24 * 60 * 60; // 1 day
-              const endTime = startTime + Number(durationInHour) * 60 * 60;
+              const endTime = startTime + (Number(durationInHour) * 60 * 60);
               this.toCreateAuction({
                 tokenId: luckyTokenId,
                 priceInETH,
