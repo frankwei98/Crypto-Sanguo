@@ -400,7 +400,7 @@ export default {
           confirmText: this.$t('alert.buyLuckyToken.success.confirmText')
         };
       } catch (e) {
-        console.log(e);
+        console.error(e);
         alertCfg = {
           type: 'is-dark',
           title: this.$t('alert.buyLuckyToken.fail.title'),

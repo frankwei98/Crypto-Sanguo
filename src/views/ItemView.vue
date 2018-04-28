@@ -236,7 +236,7 @@ export default {
         })
         .catch((e) => {
           alert(this.$t('BUY_FAIL_MSG'));
-          console.log(e);
+          console.error(e);
         });
     },
     toDisplayedPrice(priceInWei) {
@@ -266,7 +266,7 @@ export default {
         })
         .catch((e) => {
           alert(this.$t('UPDATE_PRICE_FAIL_MSG'));
-          console.log(e);
+          console.error(e);
         });
     }
   }
